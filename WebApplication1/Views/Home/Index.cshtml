@@ -1,0 +1,43 @@
+﻿@using Microsoft.AspNetCore.Mvc.Rendering
+@using WebApplication1
+@model WebApplication1.HomeIndexModel
+
+<form>
+    @Html.HiddenFor(x => x.Command.PageSize)
+    @Html.HiddenFor(x => x.Command.OrderSubject)
+    @Html.HiddenFor(x => x.Command.OrderDirection)
+    @Html.LabelFor(x => x.Command.Filter)
+    @Html.EditorFor(x => x.Command.Filter)
+    <input type="submit"/>
+</form>
+
+<table>
+    <thead>
+    <tr>
+        <th>
+            <a href="@Model.Url(cmd => cmd.OrderedBy(OrderSubject.Attribute0))">Attribute0</a>
+        </th>
+        <th>
+            <a href="@Model.Url(cmd => cmd.OrderedBy(OrderSubject.Attribute1))">Attribute1</a>
+        </th>
+    </tr>
+    </thead>
+    @foreach (var thing in Model.Things)
+    {
+        <tr>
+            <td>
+                @thing.Attribute0
+            </td>
+            <td>@thing.Attribute1</td>
+        </tr>
+    }
+</table>
+
+<ul>
+    @foreach (var indexedPageUrl in Model.IndexedPageUrls)
+    {
+        <li>
+            <a href="@indexedPageUrl.Url">@(indexedPageUrl.PageIndex + 1)</a>
+        </li>
+    }
+</ul>
